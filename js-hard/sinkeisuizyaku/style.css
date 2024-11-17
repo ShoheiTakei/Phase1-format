@@ -1,7 +1,19 @@
+body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 panel {
   width: 310px;
   height: 340px;
   overflow: hidden;
+  margin: 0 auto;
+}
+
+.grid-panel {
+  display: grid;
+  grid-template-columns: repeat(4, 60px);
 }
 
 .card {
@@ -14,13 +26,22 @@ panel {
   font-size: 26px;
   font-weight: bold;
   box-shadow: gray 2px 2px;
-  background: white;
   float: left;
   cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
+
+/* 裏の状態 */
+.front {
+  background-color: white;
+}
+
 /* 裏の状態 */
 .back {
-  background-size: 60px 80px;
+  background-color: #0070f3;
+}
+
+.pare {
   background-color: rgb(45, 139, 50);
 }
 
