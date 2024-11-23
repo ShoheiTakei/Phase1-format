@@ -117,7 +117,6 @@ const init =()=>{
 
   // カードに使うカード番号を生成して代入
   const cards = [1, 2, 3, 4, 1, 2, 3, 4]
-  // const cards = [4, 4, 4, 4, 4, 4, 4, 4]
   const shuffledCards = shuffle(cards)
 
   shuffledCards.forEach((cardNumber)=>{
