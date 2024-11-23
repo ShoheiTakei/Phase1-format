@@ -4,7 +4,18 @@
 // 数字が一致したら画面から削除/しなかったら裏返す
 // 削除/裏返しの実行は 2 枚目をクリックしてから 0.5 秒後
 
-const delaySeconds = 500
+const init = () => {
+	const panel = document.getElementById('panel')
+	panel.classList.add('grid-panel')
+
+	// カードに使うカード番号を生成して代入
+	const cards = [1, 2, 3, 4, 1, 2, 3, 4]
+	const shuffledCards = shuffle(cards)
+
+	shuffledCards.forEach((cardNumber) => {
+		createCardElement(cardNumber, faceUppedCardNumbers)
+	})
+}
 
 // カードの番号が同じだった時に更新するCSS
 const updateClassList = (currentClassList, newClassList) => {
@@ -12,21 +23,17 @@ const updateClassList = (currentClassList, newClassList) => {
 	currentClassList.add(...newClassList)
 }
 
-const updateCardStylesOnFaceUp = (currentClassList) => {
+const updateCardStylesOnFaceUp = (currentClassList) => 
 	updateClassList(currentClassList, ['card', 'front'])
-}
 
-const updateCardStylesOnFaceDown = (currentClassList) => {
+const updateCardStylesOnFaceDown = (currentClassList) => 
 	updateClassList(currentClassList, ['card', 'back'])
-}
 
-const updateCardStylesOnPare = (currentClassList) => {
+const updateCardStylesOnPare = (currentClassList) => 
 	updateClassList(currentClassList, ['card', 'pare'])
-}
 
-const updateCardStylesOnFinish = (currentClassList) => {
+const updateCardStylesOnFinish = (currentClassList) => 
 	updateClassList(currentClassList, ['card', 'finish'])
-}
 
 // 全てのカード要素取得
 const getCardElements = () => {
@@ -62,17 +69,19 @@ const delayedExecution = (callback, ms) =>
 	setTimeout(() => callback(), ms)
 
 const resetCardNumberHandler = () => {
-	faceUppedCardNumbers = []
+  faceUppedCardNumbers = []
 	isDisabled = false
 }
 
 const resetAllCards = () => {
-	const allCards = document.querySelectorAll('.card');
+  const allCards = document.querySelectorAll('.card');
 	allCards.forEach((card) => {
-		card.textContent = '';
+    card.textContent = '';
 		updateCardStylesOnFaceDown(card.classList);
 	});
 }
+
+const delaySeconds = 500
 
 // カードのペア
 const CardNumberHandler = async() => {
@@ -91,7 +100,7 @@ const CardNumberHandler = async() => {
 				alert('終了です');
 				resetAllCards()
 			}
-
+      
 			resetCardNumberHandler()
 		}, delaySeconds)
 	} else {
@@ -108,15 +117,17 @@ const CardNumberHandler = async() => {
 
 const createCardElement = (cardNumber) => {
 	// cardの要素としてdivタグ生成
-	const newDiv = document.createElement('div');
+  const newDiv = document.createElement('div');
+  
 	// css追加
 	newDiv.classList.add('card', 'back')
 	newDiv.dataset.cardNumber = cardNumber
-		// event追加
+	// event追加
 	newDiv.addEventListener('click', () => onCardClick(newDiv, cardNumber))
 
 	// カード要素作成し、親のdiv要素に子要素として追加する
-	const parentElement = document.getElementById('panel')
+  const parentElement = document.getElementById('panel')
+  
 	parentElement.appendChild(newDiv);
 }
 
@@ -133,19 +144,6 @@ const shuffle = (array) => {
 	}
 
 	return newArray;
-}
-
-const init = () => {
-	const panel = document.getElementById('panel')
-	panel.classList.add('grid-panel')
-
-	// カードに使うカード番号を生成して代入
-	const cards = [1, 2, 3, 4, 1, 2, 3, 4]
-	const shuffledCards = shuffle(cards)
-
-	shuffledCards.forEach((cardNumber) => {
-		createCardElement(cardNumber, faceUppedCardNumbers)
-	})
 }
 
 init()
