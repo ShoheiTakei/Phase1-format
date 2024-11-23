@@ -46,9 +46,16 @@ const generateBingoColumnNumbers = () => {
   const o = bingoColumns.o
   const oColumnNumbers = generateColumnNumber(o.min, b.max)
 
-  bingoColumnNumbers = [
-    bColumnNumbers, iColumnNumbers, nColumnNumbers, gColumnNumbers, oColumnNumbers
-  ]
+  // 仕様通りなるように並び替え
+  for (let i = 0; i < 5; i++) {
+    bingoColumnNumbers[i] = [
+      bColumnNumbers[i],
+      iColumnNumbers[i],
+      nColumnNumbers[i],
+      gColumnNumbers[i],
+      oColumnNumbers[i]
+    ]
+  }
 
   return bingoColumnNumbers
 }
@@ -76,6 +83,19 @@ const generateColumnNumber = (min, max) => {
 const createBingoColumnElement = () => {
   const view = document.getElementById('view')
 
+  // Headerのセル描画
+  const headerRow = document.createElement('tr');
+  const headers = ['B', 'I', 'N', 'G', 'O'];
+
+  headers.forEach(header => {
+    const cellElement = document.createElement('td');
+    cellElement.textContent = header;
+    headerRow.appendChild(cellElement);
+  });
+
+  view.appendChild(headerRow);
+
+  // Bingoのセル描画
   bingoNumbers.forEach(row => {
     const rowElement = document.createElement('tr')
 
@@ -83,9 +103,9 @@ const createBingoColumnElement = () => {
       const cellElement = document.createElement('td')
       cellElement.textContent = cell;
 
-      if (cellElement.textContent === 'free') {
-        cellElement.classList.add('hit-num')
-      }
+      // if (cellElement.textContent === 'free') {
+      //   cellElement.classList.add('hit-num')
+      // }
 
       rowElement.appendChild(cellElement)
     })
