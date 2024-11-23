@@ -3,6 +3,7 @@
 // B の列には 1 ~ 15, I の列は 16 ~ 30, N の列には 31 ~ 45, G の列は 46 ~ 60, O の列には 61 ~ 75
 // 真ん中は free にする
 
+let bingoNumbers = []
 const bingoColumns = {
   b: { min: 1, max: 15 },
   i: { min: 16, max: 30 },
@@ -12,24 +13,17 @@ const bingoColumns = {
 }
 
 const init = () => {
-  let bingoColumnNumbers = []
-  createBingoElement()
-}
-
-// 描画
-const createBingoElement = () => {
   // 乱数の二次元配列
-  const bingoColumnNumbers = generateBingoColumnNumbers()
+  bingoNumbers = generateBingoColumnNumbers()
 
-  // bingoColumnNumbersを描画
-  createBingoColumnElement(bingoColumnNumbers)
-
-  // debug
-  console.log(bingoColumnNumbers)
+  // element描画
+  createBingoColumnElement()
 }
 
 // ビンゴの二次元配列を生成関数
 const generateBingoColumnNumbers = () => {
+  let bingoColumnNumbers = []
+
   // B列
   const b = bingoColumns.b
   const bColumnNumbers = generateColumnNumber(b.min, b.max)
@@ -79,10 +73,10 @@ const generateColumnNumber = (min, max) => {
   return columnNumbers
 }
 
-const createBingoColumnElement = (bingoColumnNumbers) => {
+const createBingoColumnElement = () => {
   const view = document.getElementById('view')
 
-  bingoColumnNumbers.forEach(row => {
+  bingoNumbers.forEach(row => {
     const rowElement = document.createElement('tr')
 
     row.forEach(cell => {
@@ -100,11 +94,22 @@ const createBingoColumnElement = (bingoColumnNumbers) => {
   });
 }
 
+// TODO: チャレンジ問題後でやる
 const onClickSetButton = () => {
-  
+  // ランダムの番号を返す関数
+  createBingoNumber()
+
+
+  // ランダムの番号と合致したセルのスタイル更新
+
+
+  const bingoNumber = '1'
+  window.alert(`数字は${bingoNumber}です！`)
 }
 
-// ビンゴ番号発表のEvent関数
-// ビンゴ番号が存在したら、ビンゴのマスのclass名を変更
+const createBingoNumber = () => {
+  const allNum = bingoNumbers.flat()
+  console.log(allNum)
+}
 
 init()
