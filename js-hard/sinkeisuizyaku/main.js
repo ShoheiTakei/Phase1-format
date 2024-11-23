@@ -40,7 +40,6 @@ let isDisabled = false
 const onCardClick = async (cardElement, faceUpCardNumber) => {
   // 表のカード、ペアを見つけたカードは早期リターン
   if (isDisabled || cardElement.classList.contains("front") || cardElement.classList.contains("finish")) {
-    console.log("表 or ペアのカードです")
     return
   }
 
@@ -51,7 +50,6 @@ const onCardClick = async (cardElement, faceUpCardNumber) => {
   // 配列に追加
   faceUppedCardNumbers.push(cardElement)
 
-  console.log(`faceUppedCardNumbers.length: ${faceUppedCardNumbers.length}`)
   if (faceUppedCardNumbers.length === 2) {
     await CardNumberHandler(faceUppedCardNumbers) 
   }
@@ -61,18 +59,14 @@ const onCardClick = async (cardElement, faceUpCardNumber) => {
 const CardNumberHandler = async () => {
   const [card1, card2] = faceUppedCardNumbers;
 
-  console.log(faceUppedCardNumbers)
-
   if (card1.dataset.cardNumber === card2.dataset.cardNumber) {
     faceUppedCardNumbers.forEach((element) => 
       updateCardStylesOnPare(element.classList)
     )
 
     faceUppedCardNumbers = []
-    console.log(`faceUppedCardNumbers.length: ${faceUppedCardNumbers.length}`)
     isDisabled = false
   } else {
-    console.log('カード揃わない')
     isDisabled = true;
 
     setTimeout(() => {
@@ -82,7 +76,6 @@ const CardNumberHandler = async () => {
       } 
       )
       faceUppedCardNumbers = []
-      console.log(`faceUppedCardNumbers.length: ${faceUppedCardNumbers.length}`)
       isDisabled = false  
     }, 2000)
   }
