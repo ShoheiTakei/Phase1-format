@@ -47,7 +47,7 @@ let isDisabled = false
 
 // カード押下時のEvent
 const onCardClick = async(cardElement, faceUpCardNumber) => {
-	// 表のカード、ペアを見つけたカードは早期リターン
+	// 日活性時、表のカード、ペアを見つけたカードは早期リターン
 	if (isDisabled || cardElement.classList.contains("front") || cardElement.classList
 		.contains("finish")) {
 		return
@@ -81,12 +81,11 @@ const resetAllCards = () => {
 	});
 }
 
-const delaySeconds = 500
-
 // カードのペア
-const CardNumberHandler = async() => {
-	isDisabled = true;
-
+const CardNumberHandler = async () => {
+  isDisabled = true;
+  
+  const delaySeconds = 500
 	const [card1, card2] = faceUppedCardNumbers;
 	if (card1.dataset.cardNumber === card2.dataset.cardNumber) {
 		delayedExecution(() => {
@@ -127,7 +126,6 @@ const createCardElement = (cardNumber) => {
 
 	// カード要素作成し、親のdiv要素に子要素として追加する
   const parentElement = document.getElementById('panel')
-  
 	parentElement.appendChild(newDiv);
 }
 
