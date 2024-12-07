@@ -16,6 +16,10 @@ const init = () => {
   // 乱数の二次元配列
   bingoNumbers = generateBingoColumnNumbers()
 
+  // id hitNumにEvent追加
+  const hitNumElement = document.getElementById('hitNum')
+  hitNumElement.addEventListener('click',()=>onClickSetButton())
+
   // element描画
   createBingoColumnElement()
 }
